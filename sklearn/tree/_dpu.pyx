@@ -2,7 +2,7 @@ cimport numpy as np
 
 ctypedef np.npy_uint32 UINT32_t
 
-cdef extern from "_dpu_c.c":
+cdef extern from "src/_dpu_c.c":
    void print_n_clusters_c()
    void allocate(UINT32_t *ndpu)
 

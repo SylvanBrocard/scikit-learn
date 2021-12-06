@@ -41,7 +41,7 @@ def configuration(parent_package="", top_path=None):
     )
     config.add_extension(
         "_dpu",
-        sources=["_dpu.pyx", "_dpu_c.c"],
+        sources=["_dpu.pyx", "src/_dpu_c.c"],
         include_dirs=[numpy.get_include(),"/usr/include/dpu"],
         libraries=libraries + ["dpu"],
         extra_compile_args=["-O3", dpu_pkg_args],
