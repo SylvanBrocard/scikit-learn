@@ -1,10 +1,7 @@
 import os
-import subprocess
 
 import numpy
 from numpy.distutils.misc_util import Configuration
-
-dpu_pkg_args = subprocess.getoutput("dpu-pkg-config --libs --cflags dpu")
 
 def configuration(parent_package="", top_path=None):
     config = Configuration("tree", parent_package, top_path)
@@ -38,16 +35,6 @@ def configuration(parent_package="", top_path=None):
         include_dirs=[numpy.get_include()],
         libraries=libraries,
         extra_compile_args=["-O3"],
-    )
-    config.add_extension(
-        "_dpu",
-        sources=["_dpu.pyx", "src/_dpu_c.c"],
-        include_dirs=[numpy.get_include(),"/usr/include/dpu"],
-        libraries=libraries + ["dpu"],
-        extra_compile_args=["-O3", dpu_pkg_args],
-        # extra_compile_args=["-O3","-ldpu -I/usr/include/dpu"],
-        # extra_compile_args=["-O3","`dpu-pkg-config --libs --cflags dpu`"],
-        define_macros=[("NB_CLUSTERS","12")],
     )
 
     config.add_subpackage("tests")
