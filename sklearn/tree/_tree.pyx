@@ -31,6 +31,8 @@ np.import_array()
 from scipy.sparse import issparse
 from scipy.sparse import csr_matrix
 
+from time import perf_counter
+
 from ._utils cimport Stack
 from ._utils cimport StackRecord
 from ._utils cimport PriorityHeap
@@ -183,6 +185,8 @@ cdef class DepthFirstTreeBuilder(TreeBuilder):
         cdef Stack stack = Stack(INITIAL_STACK_SIZE)
         cdef StackRecord stack_record
 
+        tic = perf_counter()
+
         with nogil:
             # push root node onto stack
             rc = stack.push(0, n_node_samples, 0, _TREE_UNDEFINED, 0, INFINITY, 0)
@@ -261,6 +265,9 @@ cdef class DepthFirstTreeBuilder(TreeBuilder):
                 tree.max_depth = max_depth_seen
         if rc == -1:
             raise MemoryError()
+
+        toc = perf_counter()
+        print(f"tree_time = {toc - tic} s")
 
 
 # Best first builder ----------------------------------------------------------
