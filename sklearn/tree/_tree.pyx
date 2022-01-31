@@ -32,6 +32,7 @@ from scipy.sparse import issparse
 from scipy.sparse import csr_matrix
 
 from time import perf_counter
+from . import _perfcounter
 
 from ._utils cimport Stack
 from ._utils cimport StackRecord
@@ -267,7 +268,7 @@ cdef class DepthFirstTreeBuilder(TreeBuilder):
             raise MemoryError()
 
         toc = perf_counter()
-        print(f"tree_time = {toc - tic} s")
+        _perfcounter.time_taken = toc - tic
 
 
 # Best first builder ----------------------------------------------------------
