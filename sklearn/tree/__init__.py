@@ -9,6 +9,7 @@ from ._classes import DecisionTreeRegressor
 from ._classes import ExtraTreeClassifier
 from ._classes import ExtraTreeRegressor
 from ._export import export_graphviz, plot_tree, export_text
+from . import _perfcounter
 
 __all__ = [
     "BaseDecisionTree",
